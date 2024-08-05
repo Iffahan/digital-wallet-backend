@@ -1,13 +1,14 @@
 [tool.poetry]
-name = "digimon"
+name = "digital-wallet"
 version = "0.1.0"
-description = ""
-authors = ["Thanathip Limna <boatkrap@gmail.com>"]
+description = "practice FastAPI and PostgreSQL"
+authors = ["Iffahan Suksuwan <iffahan.suksuwan@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-fastapi = "^0.111.1"
+fastapi = "^0.112.0"
+uvicorn = "^0.30.5"
 sqlmodel = "^0.0.21"
 pg8000 = "^1.31.2"
 
