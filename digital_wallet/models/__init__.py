@@ -2,12 +2,13 @@ from typing import Optional
 
 from sqlmodel import Field, SQLModel, create_engine, Session, select
 
-from . import merchants, items, wallets, transactions
+#from . import merchants, items, wallets, transactions
+from . import merchants, items
 
 from .items import *
 from .merchants import *
-from .wallets import *
-from .transactions import * 
+#from .wallets import *
+#from .transactions import * 
 
 
 connect_args = {}
