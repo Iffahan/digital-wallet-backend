@@ -10,10 +10,12 @@ from sqlalchemy.orm import sessionmaker
 from . import items
 from . import merchants
 from . import users
+#from . import wallets
 
 from .items import *
 from .merchants import *
 from .users import *
+#from .wallets import *
 
 
 connect_args = {}

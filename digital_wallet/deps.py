@@ -6,7 +6,7 @@ import jwt
 
 from pydantic import ValidationError
 
-from .. import models
+from . import models
 from . import security
 from . import config
 

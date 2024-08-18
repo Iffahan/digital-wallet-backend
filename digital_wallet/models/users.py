@@ -1,12 +1,13 @@
 import datetime
 import pydantic
 from pydantic import BaseModel, EmailStr, ConfigDict
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel, Field, Relationship
 from sqlalchemy import Column
 from sqlalchemy.dialects.postgresql import JSON  # Use JSON for list storage
 from typing import List
 
 from passlib.context import CryptContext
+from . import wallets
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -93,6 +94,9 @@ class DBUser(BaseUser, SQLModel, table=True):
     register_date: datetime.datetime = Field(default_factory=datetime.datetime.now)
     updated_date: datetime.datetime = Field(default_factory=datetime.datetime.now)
     last_login_date: datetime.datetime | None = Field(default=None)
+    
+    
+    wallets: List["DBWallet"] = Relationship(back_populates="user")
 
     async def has_roles(self, roles: List[str]) -> bool:
         return any(role in self.roles for role in roles)
