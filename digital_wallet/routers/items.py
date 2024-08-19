@@ -10,7 +10,7 @@ import math
 from .. import models
 from .. import deps
 
-router = APIRouter(prefix="/items")
+router = APIRouter(prefix="/items", tags=["items"])
 
 SIZE_PER_PAGE = 50
 

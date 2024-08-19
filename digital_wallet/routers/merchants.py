@@ -9,7 +9,7 @@ from .. import models
 from .. import deps
 
 
-router = APIRouter(prefix="/merchants")
+router = APIRouter(prefix="/merchants", tags=["merchants"])
 
 
 @router.post("")
