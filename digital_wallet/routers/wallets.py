@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends, status
 from typing import Annotated
 from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlmodel import select
+from datetime import datetime
 
 from .. import models, deps
 
@@ -67,9 +68,10 @@ async def update_wallet(
     if db_wallet.user_id != current_user.id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to update this wallet")
 
-    # Update the wallet fields
+    # Update the wallet fields and set last_updated timestamp
     for key, value in wallet.dict(exclude_unset=True).items():
         setattr(db_wallet, key, value)
+    db_wallet.last_updated = datetime.utcnow()  # Update the timestamp
 
     session.add(db_wallet)
     await session.commit()
