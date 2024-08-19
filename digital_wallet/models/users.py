@@ -4,7 +4,7 @@ from pydantic import BaseModel, EmailStr, ConfigDict
 from sqlmodel import SQLModel, Field, Relationship
 from sqlalchemy import Column
 from sqlalchemy.dialects.postgresql import JSON  # Use JSON for list storage
-from typing import List
+from typing import List, Optional
 
 from passlib.context import CryptContext
 from . import wallets
@@ -94,9 +94,9 @@ class DBUser(BaseUser, SQLModel, table=True):
     register_date: datetime.datetime = Field(default_factory=datetime.datetime.now)
     updated_date: datetime.datetime = Field(default_factory=datetime.datetime.now)
     last_login_date: datetime.datetime | None = Field(default=None)
-    
-    
-    wallets: List["DBWallet"] = Relationship(back_populates="user")
+
+    wallet: Optional[wallets.DBWallet] = Relationship(back_populates="user", sa_relationship_kwargs={"lazy": "joined"})
+
 
     async def has_roles(self, roles: List[str]) -> bool:
         return any(role in self.roles for role in roles)
