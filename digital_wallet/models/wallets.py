@@ -4,6 +4,8 @@ from pydantic import BaseModel, ConfigDict
 import pydantic
 from datetime import datetime
 
+from . import transactions
+
 class BaseWallet(BaseModel):
     model_config = ConfigDict(from_attributes=True, populate_by_name=True)
 
@@ -25,6 +27,9 @@ class DBWallet(BaseWallet, SQLModel, table=True):
 
     user_id: int = Field(default=None, foreign_key="users.id")
     user: Optional["DBUser"] = Relationship(back_populates="wallet")  # Use a string to reference the class
+    
+    transactions: list["DBTransaction"] = Relationship(back_populates="wallet")
+
 
 class WalletList(BaseModel):
     model_config = ConfigDict(from_attributes=True)

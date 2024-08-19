@@ -5,7 +5,7 @@ from sqlmodel import Field, SQLModel, create_engine, Session, select, Relationsh
 
 from . import users
 from . import merchants
-
+from . import transactions
 
 class BaseItem(BaseModel):
     model_config = ConfigDict(from_attributes=True)
@@ -40,6 +40,8 @@ class DBItem(BaseItem, SQLModel, table=True):
 
     user_id: int = Field(default=None, foreign_key="users.id")
     user: users.DBUser | None = Relationship()
+    
+    transactions: list["DBTransaction"] = Relationship(back_populates="item")
 
 
 class ItemList(BaseModel):

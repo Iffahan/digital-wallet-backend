@@ -8,6 +8,7 @@ from typing import List, Optional
 
 from passlib.context import CryptContext
 from . import wallets
+from . import transactions
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -96,6 +97,7 @@ class DBUser(BaseUser, SQLModel, table=True):
     last_login_date: datetime.datetime | None = Field(default=None)
 
     wallet: Optional[wallets.DBWallet] = Relationship(back_populates="user", sa_relationship_kwargs={"lazy": "joined"})
+    transactions: list["DBTransaction"] = Relationship(back_populates="user")
 
 
     async def has_roles(self, roles: List[str]) -> bool:
